@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: contract
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: nlndint
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: /
+    repoURL: https://github.com/sameerafonseka/ArgoCDTest.git
+    targetRevision: HEAD
+    helm:
+      releaseName: contractrestservice
