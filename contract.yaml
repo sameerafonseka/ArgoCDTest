@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: /
+    path: /restservice
     repoURL: https://github.com/sameerafonseka/ArgoCDTest.git
     targetRevision: HEAD
     helm:
