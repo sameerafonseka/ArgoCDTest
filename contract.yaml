@@ -7,12 +7,13 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: nlndint
+    namespace: tagsint
     server: https://kubernetes.default.svc
   project: default
   source:
     path: restservice
     repoURL: https://github.com/sameerafonseka/ArgoCDTest.git
     targetRevision: HEAD
+    valueFiles: ['contract-helm-values.yaml']
     helm:
       releaseName: contractrestservice

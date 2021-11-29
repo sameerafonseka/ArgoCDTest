@@ -1,0 +1,61 @@
+affinity: {}
+armAuth:
+  identityClientID: 954f400e-0c11-4a94-ba5f-a58d8550b9d5
+  identityResourceID: /subscriptions/de637caa-55e2-4e84-b225-c5e83427567f/resourceGroups/MC_tagsint-infiniteabacus-aks-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/tagsint_inf_aba_contract_identity_msi
+  type: aadPodIdentity
+autoscaling:
+  enabled: false
+  maxReplicas: 5
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 80
+fullnameOverride: ""
+healthProbeEndpoint: /api/Heartbeat
+image:
+  pullPolicy: Always
+  repository: infiniteregistry.azurecr.io/dsc/inf.contract.restservice
+  tag: 2.3.0.362
+imagePullSecrets: []
+includeAbacusFlowConfigMap: true
+ingress:
+  annotations:
+    appgw.ingress.kubernetes.io/backend-path-prefix: /
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  enabled: true
+  hosts:
+  - host: tags.int.infinite.daimler.com
+    paths:
+    - backend:
+        serviceName: contractrestservice
+        servicePort: 80
+      path: /ContractService(/|$)(.*)
+      pathType: Prefix
+  tls:
+  - hosts:
+    - tags.int.infinite.daimler.com
+    secretName: tls-secret
+nameOverride: ""
+nodeSelector: {}
+podAnnotations:
+  dapr.io/app-id: contract
+  dapr.io/app-port: "80"
+  dapr.io/config: jaeger-tracing
+  dapr.io/enabled: "true"
+  dapr.io/log-as-json: "true"
+  dapr.io/log-level: debug
+podSecurityContext: {}
+replicaCount: 1
+resources: {}
+securityContext: {}
+service:
+  port: 80
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  create: true
+  name: ""
+tolerations: []
