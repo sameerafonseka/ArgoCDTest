@@ -14,6 +14,6 @@ spec:
     path: restservice
     repoURL: https://github.com/sameerafonseka/ArgoCDTest.git
     targetRevision: HEAD
-    valueFiles: ['contract-helm-values.yaml']
     helm:
       releaseName: contractrestservice
+      valueFiles: ['contract-helm-values.yaml']
